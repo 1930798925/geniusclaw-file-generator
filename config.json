@@ -1,0 +1,16 @@
+{
+  "skills": {
+    "entries": {
+      "file-generator": {
+        "enabled": true,
+        "env": {
+          "fileDirectory": "./public-files",
+          "httpServerPort": "5000",
+          "httpServerHost": "auto",
+          "baseUrl": "auto",
+          "enableTimestamp": "true"
+        }
+      }
+    }
+  }
+}

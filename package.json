@@ -1,0 +1,29 @@
+{
+  "name": "file-generator",
+  "version": "1.0.0",
+  "description": "File Generator Skill for creating HTML, PDF, Markdown files with HTTP download links",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "keywords": [
+    "file",
+    "generator",
+    "html",
+    "pdf",
+    "markdown",
+    "download",
+    "http"
+  ],
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/geniusclaw/file-generator-skill.git"
+  },
+  "author": "GeniusClaw"
+}
