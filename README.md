@@ -1,162 +1,218 @@
-# File Generator Skill
+# File Generator Skill - 文件生成技能包
 
-A comprehensive file generation skill for creating HTML, PDF, Markdown, and other documents with HTTP download links.
+一个用于生成HTML、PDF、Markdown等文件并提供HTTP下载地址的文件生成技能包。
 
-## Installation
+## 🚀 快速开始
 
-Install this skill using the skills CLI:
+### 安装技能包
 
-```bash
-npx skills add geniusclaw-skills-file-generator
-```
-
-Or install from local directory:
+将此技能包克隆到OpenClaw的skills目录：
 
 ```bash
-npx skills add /home/it/.openclaw/skills/file-generator
+git clone https://github.com/1930798925/geniusclaw-file-generator.git ~/.openclaw/skills/file-generator
 ```
 
-## Features
+或使用npx skills add命令：
 
-- **Multiple File Formats**: Support for HTML, PDF, Markdown, Text, and more
-- **Automatic HTTP Links**: Generates HTTP download addresses for easy access
-- **Timestamp Naming**: Optional timestamp in filenames to avoid conflicts
-- **HTML Templates**: Built-in HTML templates with professional styling
-- **Chinese Support**: Full support for Chinese filenames and content
-- **Error Handling**: Comprehensive error handling and user feedback
-
-## Quick Start
-
-### Basic Usage
-
-```javascript
-const FileGenerator = require('./index.js');
-
-const generator = new FileGenerator({
-  fileDirectory: '/home/it/public-files',
-  httpServerPort: 5000,
-  httpServerHost: '192.168.70.127',
-  baseUrl: 'http://192.168.70.127:5000'
-});
-
-const result = await generator.generateHTML('企业官网技术方案', '<h1>技术方案内容</h1>');
-console.log('Download URL:', result.downloadUrl);
+```bash
+npx skills add geniusclaw-file-generator
 ```
 
-### Generate Markdown File
+### 配置技能
 
-```javascript
-const generator = new FileGenerator(config);
-const result = await generator.generateMarkdown('销售报告', '# 销售报告\n\n这是第一季度的销售数据...');
-console.log('File saved:', result.filePath);
+OpenClaw技能需要在openclaw.json配置文件中手动添加配置。
+
+配置文件位置：
+
+- **Linux/macOS**: `~/.openclaw/openclaw.json`
+- **Windows**: `C:\Users\<用户名>\.openclaw\openclaw.json`
+
+### 基本配置示例
+
+在openclaw.json中添加：
+
+```json
+{
+  "skills": {
+    "entries": {
+      "file-generator": {
+        "enabled": true,
+        "env": {
+          "fileDirectory": "./public-files",
+          "httpServerPort": "5000",
+          "httpServerHost": "auto",
+          "baseUrl": "auto",
+          "enableTimestamp": "true"
+        }
+      }
+    }
+  }
+}
 ```
 
-### Generate with Custom Filename
+### 重启OpenClaw
 
-```javascript
-const generator = new FileGenerator(config);
-const result = await generator.generateFile('季度总结.html', '<h1>季度总结</h1>', 'html');
-console.log('Download URL:', result.downloadUrl);
+配置完成后，重启OpenClaw服务：
+
+```bash
+openclaw restart
 ```
 
-## Configuration
+## 📦 功能特性
 
-- `fileDirectory` (string): Directory for file storage (default: '/home/it/public-files')
-- `httpServerPort` (number): HTTP server port (default: 5000)
-- `httpServerHost` (string): HTTP server host (default: '192.168.70.127')
-- `baseUrl` (string): Base URL for HTTP access (default: 'http://192.168.70.127:5000')
-- `enableTimestamp` (boolean): Add timestamp to filenames (default: true)
+此技能包包含File Generator Skill，具有以下功能：
 
-## API Methods
+📄 **多种文件格式**：支持HTML、Markdown、文本等多种格式
+🌐 **HTTP下载地址**：自动生成HTTP下载地址，方便访问
+⏰ **时间戳命名**：可选的时间戳功能，避免文件名冲突
+🎨 **HTML模板**：内置专业HTML模板和样式
+🇨🇳 **中文支持**：完整的中文文件名和内容支持
+⚠️ **错误处理**：全面的错误处理和用户反馈
+🔧 **动态配置**：自动获取本机IP，无需硬编码
+🚀 **Promise API**：现代async/await接口，易于集成
+
+## 📖 文档
+
+详细配置指南: CONFIG_GUIDE.md
+技能文档: SKILL.md
+技能实现: index.js
+
+## 🎯 使用方法
+
+### 生成HTML文件
+
+生成一个HTML文档 [文档标题]
+
+### 生成Markdown文件
+
+生成一个Markdown文档 [文档标题]
+
+### 生成文本文件
+
+生成一个文本文件 [文档标题]
+
+### 生成指定格式的文件
+
+生成一个[格式]文件 [文档标题]
+
+### 示例对话
+
+**用户**: 生成一个企业官网技术方案的HTML文档
+
+**AI**: ✅ 文件已生成成功！
+📁 文件名：企业官网技术方案_2026-03-25_14-30-00.html
+📂 存储路径：./public-files/企业官网技术方案_2026-03-25_14-30-00.html
+🌐 下载地址：http://YOUR_IP:5000/企业官网技术方案_2026-03-25_14-30-00.html
+💡 提示：点击链接或复制到浏览器中打开即可下载
+
+## 📁 包结构
+
+geniusclaw-file-generator/
+├── README.md              # 本文件
+└── file-generator/         # File Generator Skill
+    ├── SKILL.md         # 技能定义
+    ├── index.js         # 核心实现
+    ├── config.json      # 技能配置
+    ├── package.json     # 包配置
+    └── README.md        # 技能文档
+
+## 🔧 配置参数
+
+### 必需配置
+
+- `fileDirectory` (string): 文件存储目录 (默认: './public-files')
+- `httpServerPort` (number): HTTP服务器端口 (默认: 5000)
+- `httpServerHost` (string): HTTP服务器主机地址 (默认: 'auto'，自动获取本机IP)
+- `baseUrl` (string): HTTP访问基础URL (默认: 'auto'，自动构建)
+
+### 可选配置
+
+- `enableTimestamp` (boolean): 是否在文件名中添加时间戳 (默认: true)
+
+### 动态配置说明
+
+- `httpServerHost` 设置为 `'auto'` 时，技能会自动获取本机的第一个非内部IPv4地址
+- `baseUrl` 设置为 `'auto'` 时，技能会自动构建为 `http://${httpServerHost}:${httpServerPort}`
+- `fileDirectory` 支持相对路径（如 `'./public-files'`），会自动解析为绝对路径
+
+## 🛠️ API方法
 
 ### `generateHTML(title, content, filename?)`
-Generates an HTML file with professional styling.
+生成HTML文件，包含专业样式和布局。
 
 ### `generateMarkdown(title, content, filename?)`
-Generates a Markdown file.
+生成Markdown文件。
 
 ### `generateText(title, content, filename?)`
-Generates a plain text file.
+生成纯文本文件。
 
 ### `generateFile(filename, content, type)`
-Generates a file with specified type.
+生成指定类型的文件。
 
 ### `getDownloadUrl(filename)`
-Returns the HTTP download URL for a file.
+返回文件的HTTP下载URL。
 
 ### `formatOutput(result)`
-Formats the output message with download information.
+格式化输出消息，包含下载信息。
 
-## HTML Template
+### `resolveDynamicConfig()`
+解析动态配置，自动获取IP和构建URL。
 
-The HTML template includes:
-- Professional styling with Microsoft YaHei font
-- Responsive design
-- Print-friendly styles
-- Code highlighting
-- Clean, modern layout
+### `getLocalIP()`
+获取本机IP地址。
 
-## Examples
+## 🔗 仓库
 
-### Generate Technical Documentation
+https://github.com/1930798925/geniusclaw-file-generator
 
-```javascript
-const generator = new FileGenerator(config);
-const content = `
-<h1>企业官网技术方案</h1>
-<h2>技术架构</h2>
-<p>采用前后端分离架构...</p>
-<pre><code>const app = express();
-app.listen(3000);</code></pre>
-`;
+## 📄 许可证
 
-const result = await generator.generateHTML('企业官网技术方案', content);
-console.log(result.formattedOutput);
-```
+MIT License - 欢迎使用和修改用于您的项目。
 
-### Generate Sales Report
+## ⚠️ 重要提示
 
-```javascript
-const generator = new FileGenerator(config);
-const content = `
-# 销售报告
+### 配置方式
+- OpenClaw技能需要在openclaw.json配置文件中手动添加配置
+- 不支持在web界面直接配置
 
-## 第一季度数据
-- 总销售额：¥1,000,000
-- 新客户：50家
-- 客户满意度：95%
-`;
+### 动态配置
+- 建议使用 `'auto'` 值让技能自动获取本机IP和构建URL
+- 避免硬编码IP地址，提高环境适应性
 
-const result = await generator.generateMarkdown('销售报告', content);
-console.log(result.formattedOutput);
-```
+### 文件服务器
+- 需要确保HTTP服务器在指定端口运行
+- 默认端口为5000，确保防火墙允许访问
 
-## Output Format
+### 安全性
+- 不要将包含敏感信息的配置文件提交到版本控制
+- 建议将生成的文件存储在受控的目录中
 
-When files are generated, the output includes:
+### 集成说明
+- 此技能已集成到所有沐枫AI助手（CEO、销售、技术、运营、产品）
+- 可在飞书中直接使用，助手会自动生成文件并提供下载地址
 
-```
-✅ 文件已生成成功！
-📁 文件名：企业官网技术方案_2026-03-25_14-30-00.html
-📂 存储路径：/home/it/public-files/企业官网技术方案_2026-03-25_14-30-00.html
-🌐 下载地址：http://192.168.70.127:5000/企业官网技术方案_2026-03-25_14-30-00.html
-💡 提示：点击链接或复制到浏览器中打开即可下载
-```
+## 📚 更多信息
 
-## Dependencies
+详细配置指南: CONFIG_GUIDE.md
+技能元数据: SKILL.md
+包配置: package.json
 
-```bash
-npm install fs
-```
+## 💡 使用场景
 
-## Integration
+### 企业文档生成
+- 技术方案文档
+- 销售报告
+- 产品规划文档
+- 运营分析报告
 
-This skill integrates with:
-- All Mufeng AI assistants (CEO, Sales, Tech, Ops, Product)
-- OpenClaw agents
-- HTTP file server on port 5000
-- Internal network environment
+### 快速原型开发
+- HTML页面原型
+- Markdown文档
+- 配置文件模板
+- 数据导出文件
 
-## License
-
-MIT License - Feel free to use and modify for your projects.
+### 内网文件共享
+- 通过HTTP地址快速分享文件
+- 支持中文文件名
+- 自动时间戳避免冲突
+- 适合内网环境使用
